@@ -1,0 +1,48 @@
+write a django python ai gitignore 
+# Django
+*.pyc
+__pycache__/
+*.sqlite3
+db.sqlite3
+/media/
+/staticfiles/
+.env
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Celery
+celerybeat-schedule
+celery-results/
+
+# Logs
+*.log
+
+# Others
+*.bak
+dump.rdb
+cloudinary_storage/
+firebase-service-account.json
+spiritual/videos/171885-846113522_tiny.mp4
+tlecap80-firebase-adminsdk-fbsvc-22d9b7068f.json
+chroma_data/
+
+test_chat_api.py
+test_retry.py
+pyrefly-baseline.json

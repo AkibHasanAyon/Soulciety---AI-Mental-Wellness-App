@@ -1,0 +1,2787 @@
+{
+  "info": {
+    "_postman_id": "soulciety-backend-2025",
+    "name": "Soulciety Backend API - Complete 2025 Collection",
+    "description": "Full Postman collection for all Soulciety API endpoints (auth, home, spiritual, journal, chat, community, profile, notifications). Use {{base_url}} and {{access_token}} variables.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Auth",
+      "item": [
+        {
+          "name": "POST Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"test1234\",\n  \"confirm_password\": \"test1234\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"test1234\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Verify OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"otp\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/verify-otp/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "verify-otp",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/forgot-password/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "forgot-password",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uidb64\": \"...\",\n  \"token\": \"...\",\n  \"new_password\": \"newpass123\",\n  \"confirm_password\": \"newpass123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/reset-password/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "reset-password",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Token Refresh",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refresh\": \"...\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/token/refresh/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "token",
+                "refresh",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Resend OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/resend-otp/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "resend-otp",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Google Auth",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"access_token\": \"...\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/social/google/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "social",
+                "google",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Apple Auth",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id_token\": \"...\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/social/apple/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "social",
+                "apple",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Home",
+      "item": [
+        {
+          "name": "GET Home Data (recommended)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/home-data/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "home-data",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Record Mood",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mood\": \"happy\",\n  \"note\": \"Feeling great today!\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/mood/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "mood",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Daily Quote",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/quote/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "quote",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Daily Move",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/daily-move/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "daily-move",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Popular Content",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/popular/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "popular",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Featured Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/shop/featured/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "shop",
+                "featured",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Spiritual",
+      "item": [
+        {
+          "name": "GET Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/spiritual/categories/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "spiritual",
+                "categories",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Videos (filtered)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/spiritual/videos/?category=relaxation&search=peace",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "spiritual",
+                "videos",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "relaxation"
+                },
+                {
+                  "key": "search",
+                  "value": "peace"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Featured Videos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/spiritual/videos/featured/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "spiritual",
+                "videos",
+                "featured",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Suggested Videos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/spiritual/videos/suggested/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "spiritual",
+                "videos",
+                "suggested",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Single Video",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/spiritual/videos/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "spiritual",
+                "videos",
+                "1",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Popular Videos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/spiritual/videos/popular/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "spiritual",
+                "videos",
+                "popular",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Toggle Video Bookmark",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/spiritual/videos/1/bookmark/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "spiritual",
+                "videos",
+                "1",
+                "bookmark",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Bookmarked Videos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/spiritual/videos/bookmarks/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "spiritual",
+                "videos",
+                "bookmarks",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Journal",
+      "item": [
+        {
+          "name": "GET List Entries",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/journal/entries/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "journal",
+                "entries",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Create Entry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"Today I felt grateful...\",\n  \"mood\": \"Peaceful\",\n  \"tags\": \"gratitude\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/journal/entries/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "journal",
+                "entries",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Single Entry",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/journal/entries/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "journal",
+                "entries",
+                "1",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT Update Entry",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"Updated content...\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/journal/entries/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "journal",
+                "entries",
+                "1",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE Entry",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/journal/entries/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "journal",
+                "entries",
+                "1",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Toggle Journal Archive",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/journal/entries/1/archive/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "journal",
+                "entries",
+                "1",
+                "archive",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Archived Journal Entries",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/journal/archived/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "journal",
+                "archived",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5. Chat",
+      "item": [
+        {
+          "name": "GET List Conversations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/chat/conversations/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "conversations",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Create Conversation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Morning Chat\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/chat/conversations/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "conversations",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Conversation Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/chat/conversations/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "conversations",
+                "1",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE Conversation",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/chat/conversations/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "conversations",
+                "1",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Messages",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/chat/conversations/1/messages/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "conversations",
+                "1",
+                "messages",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Send Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"How can I feel more peaceful?\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/chat/conversations/1/messages/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "conversations",
+                "1",
+                "messages",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "6. Community",
+      "item": [
+        {
+          "name": "GET Posts (All/Following/My)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/community/posts/?tab=all",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "community",
+                "posts",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "tab",
+                  "value": "all"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Create Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "content",
+                  "value": "Excited for the next phase!",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/community/posts/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "community",
+                "posts",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Single Post",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/community/posts/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "community",
+                "posts",
+                "1",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE Post",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/community/posts/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "community",
+                "posts",
+                "1",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Like/Unlike",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/community/posts/1/like/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "community",
+                "posts",
+                "1",
+                "like",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Comments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/community/posts/1/comments/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "community",
+                "posts",
+                "1",
+                "comments",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Add Comment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"Love this!\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/community/posts/1/comments/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "community",
+                "posts",
+                "1",
+                "comments",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Follow/Unfollow",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/community/users/2/follow/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "community",
+                "users",
+                "2",
+                "follow",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET User Posts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/community/user/2/posts/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "community",
+                "user",
+                "2",
+                "posts",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Following Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/community/following-users/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "community",
+                "following-users",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Report Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"post\": 1,\n  \"reason\": \"spam\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/community/posts/report/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "community",
+                "posts",
+                "report",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Today's Community Prompt",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/community/prompts/today/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "community",
+                "prompts",
+                "today",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "7. Profile",
+      "item": [
+        {
+          "name": "GET Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/profile/profile/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "profile",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"phone_number\": \"+1234567890\",\n  \"current_mood\": \"Peaceful\",\n  \"notifications_enabled\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/profile/profile/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "profile",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Change Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"old_password\": \"oldpass123\",\n  \"new_password\": \"newpass123\",\n  \"confirm_password\": \"newpass123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/profile/change-password/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "change-password",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Saved Spiritual",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/profile/saved-spiritual/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "saved-spiritual",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Journal Archive",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/profile/journal-archive/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "journal-archive",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Help Center",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/profile/help-center/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "profile",
+                "help-center",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "8. Notifications",
+      "item": [
+        {
+          "name": "POST Register Device Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"fcm-token-from-device\",\n  \"platform\": \"android\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/notifications/device-token/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "device-token",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET List Notifications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/notifications/notifications/?unread=true",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "notifications",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "unread",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Mark Single as Read",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/notifications/notifications/1/read/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "notifications",
+                "1",
+                "read",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Mark All as Read",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/notifications/notifications/read-all/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "notifications",
+                "read-all",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Notification Action",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/notifications/notifications/1/action/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "notifications",
+                "1",
+                "action",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET/PATCH Notification Settings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/notifications/settings/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "notifications",
+                "settings",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "9. Healing Journey",
+      "item": [
+        {
+          "name": "GET Assessment Questions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/healing/assessment/questions/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "assessment",
+                "questions",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/healing/assessment/questions/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "assessment",
+                    "questions",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"questions\": [\n    {\n      \"id\": \"q1_emotional_baseline\",\n      \"type\": \"choice\",\n      \"question\": \"How would you describe your baseline emotional state lately?\",\n      \"options\": [\n        \"Numb or disconnected\",\n        \"Anxious or on edge\",\n        \"...\"\n      ]\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "POST Submit Assessment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "X-User-Timezone",
+                "value": "America/New_York",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"q1_emotional_baseline\": \"Numb or disconnected\",\n  \"q2_past_influence\": 4,\n  \"q3_life_area_impact\": \"Relationships & connection\",\n  \"q4_core_pain_source\": \"Feeling ignored, unseen, or emotionally neglected\",\n  \"q5_coping_pattern\": \"Withdraw from people\",\n  \"q6_relationship_fear\": \"Being abandoned or left\",\n  \"q7_core_belief\": \"I am not enough\",\n  \"q8_desired_relief\": \"Emotional pain\",\n  \"q9_healing_resistance\": \"Fear of what I might uncover\",\n  \"q10_personal_desire\": \"I want to feel safe in my own skin again.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/healing/assessment/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "assessment",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success (New Submission)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  },
+                  {
+                    "key": "X-User-Timezone",
+                    "value": "America/New_York",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"q1_emotional_baseline\": \"Numb or disconnected\",\n  \"q2_past_influence\": 4,\n  \"q3_life_area_impact\": \"Relationships & connection\",\n  \"q4_core_pain_source\": \"Feeling ignored, unseen, or emotionally neglected\",\n  \"q5_coping_pattern\": \"Withdraw from people\",\n  \"q6_relationship_fear\": \"Being abandoned or left\",\n  \"q7_core_belief\": \"I am not enough\",\n  \"q8_desired_relief\": \"Emotional pain\",\n  \"q9_healing_resistance\": \"Fear of what I might uncover\",\n  \"q10_personal_desire\": \"I want to feel safe in my own skin again.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/healing/assessment/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "assessment",
+                    ""
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Your healing journey is being created...\",\n  \"assessment_id\": 42,\n  \"status\": \"generating\"\n}"
+            },
+            {
+              "name": "Conflict (Already Active)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  },
+                  {
+                    "key": "X-User-Timezone",
+                    "value": "America/New_York",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"q1_emotional_baseline\": \"Numb or disconnected\",\n  \"q2_past_influence\": 4,\n  \"q3_life_area_impact\": \"Relationships & connection\",\n  \"q4_core_pain_source\": \"Feeling ignored, unseen, or emotionally neglected\",\n  \"q5_coping_pattern\": \"Withdraw from people\",\n  \"q6_relationship_fear\": \"Being abandoned or left\",\n  \"q7_core_belief\": \"I am not enough\",\n  \"q8_desired_relief\": \"Emotional pain\",\n  \"q9_healing_resistance\": \"Fear of what I might uncover\",\n  \"q10_personal_desire\": \"I want to feel safe in my own skin again.\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/healing/assessment/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "assessment",
+                    ""
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"error\": \"active_journey_exists\",\n  \"message\": \"Your journey is already active.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET Assessment Status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/healing/assessment/status/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "assessment",
+                "status",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/healing/assessment/status/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "assessment",
+                    "status",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status\": \"ready\",\n  \"day_1_unlocked\": true,\n  \"journey_started_at\": \"2026-04-23T10:00:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET Assessment Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/healing/assessment/profile/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "assessment",
+                "profile",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Today's Plan",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/healing/today/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "today",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Day Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/healing/days/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "days",
+                "1",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/healing/days/1/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "days",
+                    "1",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"day_number\": 5,\n  \"state\": \"available\",\n  \"unlock_date\": \"2026-04-27\",\n  \"theme\": {\n    \"theme_title\": \"The Body Remembers\",\n    \"theme_intention\": \"Today you listen to what your body has been trying to say.\",\n    \"theme_category\": \"Awareness\",\n    \"healing_focus\": [\n      \"somatic awareness\",\n      \"body trust\"\n    ]\n  },\n  \"content\": {\n    \"is_fallback\": false,\n    \"guided_reflection\": \"...\",\n    \"affirmation\": \"...\",\n    \"mental_workout\": \"...\",\n    \"physical_workout\": {\n      \"title\": \"2 Minute Body Release Practice\",\n      \"instructions\": \"...\",\n      \"duration_seconds\": 120\n    },\n    \"breathing_exercise\": {\n      \"name\": \"4-7-8 Breathing\",\n      \"inhale_seconds\": 4,\n      \"hold_in_seconds\": 7,\n      \"exhale_seconds\": 8,\n      \"hold_out_seconds\": 0,\n      \"rounds\": 4\n    },\n    \"mini_challenge\": \"...\",\n    \"journal_prompt\": \"...\"\n  },\n  \"completed_at\": null,\n  \"mood\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "POST Complete Day",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mood\": \"happy\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/healing/days/1/complete/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "days",
+                "1",
+                "complete",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success (First Completion)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mood\": \"happy\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/healing/days/1/complete/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "days",
+                    "1",
+                    "complete",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Day 5 complete. You're building something real.\",\n  \"current_streak\": 5,\n  \"total_days_completed\": 5,\n  \"milestone_reached\": null\n}"
+            },
+            {
+              "name": "Success (Already Completed)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mood\": \"happy\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/healing/days/1/complete/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "days",
+                    "1",
+                    "complete",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Day 5 was already completed.\",\n  \"current_streak\": 5,\n  \"already_completed\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET 30-Day Plan Grid",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/healing/plan/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "plan",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Progress",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/healing/progress/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "progress",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/healing/progress/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "progress",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"total_days_completed\": 12,\n  \"current_streak\": 5,\n  \"longest_streak\": 12,\n  \"milestones_reached\": [\n    3,\n    7\n  ],\n  \"grace_period_active\": false,\n  \"grace_expires_at\": null,\n  \"journey_complete\": false,\n  \"journey_started_at\": \"2026-04-12T09:00:00Z\",\n  \"journey_completed_at\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET Settings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/healing/settings/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "settings",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/healing/settings/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "settings",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"timezone\": \"UTC\",\n  \"morning_reminder_enabled\": true,\n  \"evening_reminder_enabled\": true,\n  \"morning_reminder_time\": \"08:00:00\",\n  \"evening_reminder_time\": \"20:00:00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "PATCH Settings",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"timezone\": \"America/New_York\",\n  \"morning_reminder_enabled\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/healing/settings/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "settings",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"timezone\": \"America/New_York\",\n  \"morning_reminder_enabled\": false\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/healing/settings/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "settings",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"timezone\": \"America/New_York\",\n  \"morning_reminder_enabled\": false,\n  \"evening_reminder_enabled\": true,\n  \"morning_reminder_time\": \"08:00:00\",\n  \"evening_reminder_time\": \"20:00:00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "POST Reset Journey",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/healing/reset/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "reset",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/healing/reset/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "reset",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Your previous journey has been archived. Start your new journey when you're ready.\",\n  \"archived_journey_id\": 42\n}"
+            }
+          ]
+        },
+        {
+          "name": "GET Saved Affirmations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/healing/affirmations/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "affirmations",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/healing/affirmations/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "affirmations",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 1,\n    \"text\": \"I am safe to inhabit my body exactly as it is right now.\",\n    \"day_number\": 1,\n    \"created_at\": \"2026-04-26T12:00:00Z\"\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "DELETE Saved Affirmation",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/healing/affirmations/1/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "affirmations",
+                "1",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/healing/affirmations/1/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "affirmations",
+                    "1",
+                    ""
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "POST Save Affirmation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/healing/days/1/save-affirmation/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "days",
+                "1",
+                "save-affirmation",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/healing/days/1/save-affirmation/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "days",
+                    "1",
+                    "save-affirmation",
+                    ""
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Affirmation saved successfully.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "POST Share to Community",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"affirmation\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/healing/days/1/share/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "days",
+                "1",
+                "share",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"affirmation\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/healing/days/1/share/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "healing",
+                    "days",
+                    "1",
+                    "share",
+                    ""
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Shared to community successfully.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Save Mental Workout Reflection",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"mentalreflectiontext\": \"I felt a heavy weight lift off my chest today.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/healing/days/1/reflection/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "healing",
+                "days",
+                "1",
+                "reflection",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "your-jwt-access-token-here",
+      "type": "string"
+    }
+  ]
+}

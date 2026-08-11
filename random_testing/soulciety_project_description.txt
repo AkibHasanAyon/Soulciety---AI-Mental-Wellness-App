@@ -1,0 +1,849 @@
+================================================================================
+                        SOULCIETY — PROJECT DESCRIPTION
+             A Spiritual Growth & Self-Transformation Mobile Platform
+================================================================================
+
+Project Name    : Soulciety
+Platform        : Mobile Application (iOS & Android) with REST API Backend
+Backend Stack   : Django 5.2, Django REST Framework, Celery, Redis, PostgreSQL
+AI Engine       : Google Gemini (gemini-3-flash-preview, gemini-2.5-flash)
+Cloud Services  : Cloudinary (Media Storage), Firebase (Push Notifications)
+Deployment      : Docker / Docker Compose with Gunicorn, WhiteNoise
+Domain          : soulciety.cloud
+
+
+================================================================================
+1. EXECUTIVE SUMMARY
+================================================================================
+
+Soulciety is a mobile-first spiritual growth and self-transformation platform
+that combines AI-powered mentorship, reflective journaling, community
+engagement, and curated spiritual content into a single unified experience. The
+app serves as a personal consciousness coach, helping users permanently shift
+their self-concept through the integrated teachings of Neville Goddard
+(identity), Joe Dispenza (neuroscience), and Abraham Hicks (vibration) — without
+ever naming these teachers directly.
+
+At its core, Soulciety is built around the belief that "when self-concept
+changes, reality follows." Every feature — from the AI chatbot to the community
+prompts to the journaling system — is designed to facilitate this inner
+transformation. The platform is not a generic self-help tool; it is a
+carefully architected consciousness shift engine.
+
+
+================================================================================
+2. VISION & PHILOSOPHY
+================================================================================
+
+MISSION:
+To create a digital sanctuary where users can explore, heal, and evolve
+spiritually — supported by AI that remembers them, a community that lifts them,
+and content that transforms them.
+
+CORE PRINCIPLES:
+  • Consciousness Creates Reality — Reality reflects inner assumptions.
+    Self-concept is the root cause of every external experience.
+  • Identity Over Action — Rather than prescribing behaviors, Soulciety shifts
+    the user's sense of "I AM," trusting that aligned action follows naturally.
+  • Vibration as GPS — Emotions serve as a navigation system. The app guides
+    users toward better-feeling thoughts, not forced positivity.
+  • Neuroscience of Change — The body cannot distinguish between a vividly
+    imagined experience and a real one. Elevated emotions signal a new future.
+  • Conversation Over Lecture — The AI mentor is a wise best friend over coffee,
+    not a motivational speaker at a podium.
+
+THREE PHILOSOPHICAL PILLARS (internalized, never quoted by name):
+  1. Neville Goddard (Identity) — Reality reflects inner assumptions. SATS,
+     Revision, Living in the End, "I AM" declarations. Foundation layer.
+  2. Joe Dispenza (Neuroscience) — Same thoughts daily = same reality. Elevated
+     emotions and breaking the body's addiction to past states. Mechanism layer.
+  3. Abraham Hicks (Vibration) — Emotions as GPS. Upstream vs downstream
+     thinking. Reaching for slightly better-feeling thoughts. Indicator layer.
+
+
+================================================================================
+3. TARGET AUDIENCE
+================================================================================
+
+PRIMARY:
+  • Individuals on a personal growth or spiritual awakening journey
+  • People seeking to break negative cycles, limiting beliefs, and old patterns
+  • Manifestation practitioners looking for a guided, intelligent companion
+  • Those navigating emotional challenges (grief, anxiety, career transitions)
+    who want spiritual-meets-practical support
+
+SECONDARY:
+  • Meditation and mindfulness practitioners
+  • Self-help enthusiasts wanting a more intimate, AI-powered experience
+  • Journaling enthusiasts who want AI-generated insights on their reflections
+
+
+================================================================================
+4. SYSTEM ARCHITECTURE
+================================================================================
+
+The backend is built as a modular Django application with the following major
+Django apps and their responsibilities:
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                       SOULCIETY BACKEND ARCHITECTURE                    │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌────────────┐  │
+│  │   accounts    │  │   app_home    │  │     chat      │  │  community  │  │
+│  │  (Auth/Users) │  │(Home/Quotes)  │  │ (AI Mentor)   │  │  (Social)   │  │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  └─────┬──────┘  │
+│         │                 │                 │                │          │
+│  ┌──────┴───────┐  ┌──────┴───────┐  ┌──────┴───────┐  ┌────┴───────┐  │
+│  │   journal     │  │  spiritual    │  │    memory     │  │user_profiles│ │
+│  │ (Journaling)  │  │(Video Content)│  │ (AI Memory)   │  │ (Profiles)  │ │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  └─────┬──────┘  │
+│         │                 │                 │                │          │
+│         └─────────────┬───┴────────────┬────┘                │          │
+│                       │                │                     │          │
+│               ┌───────┴────────┐  ┌────┴──────────┐         │          │
+│               │  notifications  │  │     Celery     │         │          │
+│               │  (Push/In-App)  │  │ (Task Queue)   │         │          │
+│               └────────────────┘  └───────────────┘         │          │
+│                                                              │          │
+│                   ┌──────────────────────────────┐           │          │
+│                   │     External Services         │           │          │
+│                   │  • Google Gemini AI            │           │          │
+│                   │  • Cloudinary (Media)          │           │          │
+│                   │  • Firebase (FCM Push)         │           │          │
+│                   │  • ChromaDB (Vector Store)     │           │          │
+│                   │  • Redis (Cache + Broker)      │           │          │
+│                   └──────────────────────────────┘           │          │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+DEPLOYMENT STACK:
+  • Docker Compose with 4 services:
+      1. web     — Gunicorn WSGI server (port 8000)
+      2. worker  — Celery worker for async AI tasks
+      3. beat    — Celery Beat scheduler for cron tasks
+      4. redis   — Redis 6 Alpine (message broker + cache)
+  • Static files served via WhiteNoise
+  • Media files stored on Cloudinary
+  • SSL/TLS terminated by reverse proxy (HTTPS enforced)
+
+
+================================================================================
+5. FEATURE BREAKDOWN — DETAILED
+================================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5.1  AUTHENTICATION & ACCOUNTS (accounts app)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The authentication system uses a custom user model (CustomUser) that replaces
+the default Django username with email-based authentication. It supports
+multiple registration pathways:
+
+  REGISTRATION METHODS:
+    • Email + Password Registration
+      - User registers with email and password
+      - 4-digit OTP sent to email for verification
+      - Account activated only after OTP verification
+      - JWT tokens (access + refresh) issued upon verification
+
+    • Google OAuth (Social Auth)
+      - Seamless Google Sign-In integration
+      - Auto-creates user account and profile
+      - Syncs Google profile picture (stored as social_profile_picture_url)
+      - No password required (set as unusable)
+
+    • Apple Sign-In (Social Auth)
+      - Native Apple authentication support
+      - Same flow as Google with Apple-specific handling
+      - Privacy-focused — respects Apple's email relay
+
+  SECURITY FEATURES:
+    • JWT Authentication via SimpleJWT
+      - Access token lifetime: 10 days
+      - Refresh token lifetime: 30 days
+    • OTP-based email verification (4-digit codes)
+    • Forgot Password flow with OTP verification
+    • Password reset with OTP validation
+    • OTP resend capability
+    • CSRF protection with trusted origins
+    • CORS configuration
+
+  API ENDPOINTS:
+    POST /api/auth/register/          — Register new account
+    POST /api/auth/login/             — Login with credentials
+    POST /api/auth/verify-otp/        — Verify OTP code
+    POST /api/auth/forgot-password/   — Request password reset OTP
+    POST /api/auth/reset-password/    — Reset password with OTP
+    POST /api/auth/resend-otp/        — Resend OTP code
+    POST /api/auth/google/            — Google social authentication
+    POST /api/auth/apple/             — Apple social authentication
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5.2  AI CHAT SYSTEM — THE SOULCIETY MENTOR (chat app)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This is the crown jewel of Soulciety. The AI chat system provides users with a
+deeply personalized, spiritually-grounded conversational mentor that remembers
+them across sessions and evolves its understanding over time.
+
+  THE AI PERSONA — "SOULCIETY":
+    The AI is not a chatbot — it is a spiritual transformation mentor. Its
+    personality is warm, direct, humble, and deeply rooted in the truth that
+    consciousness creates reality. It speaks like a wise best friend over
+    coffee — casual, real, passionate. It holds the user's vision even when
+    they can't see it themselves.
+
+  CONVERSATION MANAGEMENT:
+    • Multi-conversation support — users can have multiple active conversations
+    • Conversations are ordered by last updated timestamp
+    • Soft-delete support (is_active flag)
+    • Auto-generated conversation titles via Gemini AI
+      - Triggered after 5 messages if title is still "New Conversation"
+      - Generates 3-6 word descriptive titles using gemini-2.5-flash-lite
+
+  AI RESPONSE GENERATION (Celery Task):
+    The AI response is generated asynchronously via a Celery task to avoid
+    blocking the API request. The flow is:
+
+    1. User sends message → saved to database immediately
+    2. API returns HTTP 202 ("Soulciety AI is reflecting on your words...")
+    3. Celery task processes in background:
+       a. Builds memory context from user's stored memories
+       b. Retrieves last 10 messages for conversation history
+       c. Constructs system prompt with AI persona + injected memory
+       d. Calls Google Gemini (gemini-3-flash-preview) with full context
+       e. Saves AI response to database
+       f. Triggers memory extraction every 10 messages
+    4. Client polls for the latest message via dedicated endpoint
+
+  AI BEHAVIOR RULES (built into system prompt):
+    Rule Priority (when instructions conflict):
+      1. Safety rules override everything
+      2. Emotional validation comes before coaching
+      3. Conversation and listening before teaching
+      4. Coaching practices only after user's situation is understood
+      5. Spiritual reframes support, not dominate
+
+    Conversation Flow:
+      - Never rushes to coach
+      - First exchanges focus on understanding
+      - Guides through: validation → spiritual reframe → identity
+        reinforcement → personalized practice → reflective question
+      - One piece of value per response, one question, then waits
+
+    Emotional Pacing:
+      - When someone shares pain — entire response is validation
+      - No teaching, no reframes, no practices during pain
+      - After 2-4 exchanges of validation, gradually introduces insight
+
+    Crisis Safety Protocol:
+      - Suicidal thoughts: compassionate response + grounding exercise
+      - Does NOT provide crisis hotline AND exercise in same message
+      - If no improvement: provides 988 hotline
+      - Post-crisis: supportive listening, no spiritual coaching
+
+    Voice:
+      - Casual American English with contractions
+      - Short conversational responses, not lectures
+      - Never says: "Hello dear", "Certainly!", "As an AI", "Just stay positive"
+
+  RATE LIMITING:
+    • 30 AI messages per day per user
+    • Rate limit checked via django-ratelimit with Redis backend
+    • Custom rate limit key based on authenticated user ID
+
+  PAGINATION:
+    • Message history paginated (20 messages per page, max 50)
+    • Supports page_size query parameter
+
+  API ENDPOINTS:
+    GET  /api/chat/conversations/           — List user's conversations
+    POST /api/chat/conversations/           — Create new conversation
+    GET  /api/chat/conversations/<id>/      — Get conversation details
+    DELETE /api/chat/conversations/<id>/    — Delete conversation
+    GET  /api/chat/conversations/<id>/messages/  — Get messages (paginated)
+    POST /api/chat/conversations/<id>/messages/  — Send message to AI
+    GET  /api/chat/conversations/<id>/latest/    — Get latest message (polling)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5.3  AI MEMORY SYSTEM (memory app)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The Memory System is what transforms Soulciety from a stateless chatbot into a
+deeply personal companion that knows and remembers each user over time. It is a
+three-tier memory architecture:
+
+  TIER 1 — STRUCTURED MEMORIES (UserMemory model):
+    Stores extracted personal facts organized by category:
+      • Identity     — name, gender, age, location, preferences
+      • Family       — relationship status, children, partner details
+      • Career       — job title, business, financial situation
+      • Spiritual    — beliefs, manifestation goals, life vision
+      • Emotional    — recurring struggles, triggers, coping mechanisms
+      • Exercises    — practiced techniques, feedback, streaks
+      • Patterns     — communication style, breakthroughs, recurring topics
+
+    Each memory has:
+      - key (e.g., "children") and value (e.g., "2 kids, ages 5 and 8")
+      - Confidence score (0.0–1.0)
+      - Source conversation reference
+      - Soft-delete (is_active) for outdated facts
+      - Unique together constraint: (user, category, key)
+
+  TIER 2 — CONVERSATION SUMMARIES (ConversationSummary model):
+    LLM-generated summaries of conversations that include:
+      - Summary text capturing key points from user's perspective
+      - Key topics as JSON array (e.g., ["startup stress", "self-worth"])
+      - Dominant emotional state detected
+      - Message count at time of summary generation
+
+  TIER 3 — SEMANTIC VECTOR SEARCH (ChromaDB + Gemini Embeddings):
+    Uses ChromaDB (a vector database) for semantic similarity search:
+      - Each user gets their own ChromaDB collection
+      - Memories embedded using Google Gemini text-embedding-004 model
+      - At chat time, the current message is embedded and searched against
+        stored memories to surface contextually relevant past insights
+      - Distance threshold filtering (< 1.5) for relevance quality
+
+  MEMORY EXTRACTION PIPELINE (Celery Task):
+    Triggered automatically every 10 new messages in a conversation:
+    1. Collects all conversation messages
+    2. Gathers existing user memories to avoid duplicates
+    3. Calls Gemini (gemini-3-flash-preview) with extraction system prompt
+    4. Receives structured JSON with facts, summary, emotional state, topics
+    5. Upserts facts into UserMemory (updates existing, creates new)
+    6. Stores/updates ConversationSummary
+    7. Stores memory embeddings in ChromaDB for future semantic search
+    8. Logs extraction run in MemoryExtractionLog to prevent reprocessing
+
+  MEMORY CONTEXT INJECTION:
+    At chat time, the context_builder.py assembles a memory block:
+      Section 1: Structured facts ("What you know about this person")
+      Section 2: Recent conversation summaries (last 3)
+      Section 3: Semantically relevant past insights (vector search, top 3)
+    This block is appended to the system prompt with instructions to use
+    the information naturally — never robotically or with "according to records."
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5.4  REFLECTIVE JOURNALING (journal app)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The journaling system allows users to write personal reflections and receive
+AI-generated spiritual insights on each entry.
+
+  JOURNAL ENTRIES:
+    • Free-form text content with optional mood tagging
+    • Mood options: 😊 Happy, 😨 Fear, 😔 Sad, 😠 Angry, 🤢 Sick
+    • Tagging support (comma-separated tags)
+    • Privacy flag (is_private, default True)
+    • Archive/unarchive functionality for organizing entries
+
+  AI INSIGHT GENERATION (Celery Task):
+    When a journal entry is created or its content is updated:
+    1. A placeholder is shown: "✨ AI Insight: Reflecting on your thoughts..."
+    2. Celery task calls Gemini (gemini-2.5-flash) to generate:
+       - A 3-sentence poetic, healing spiritual reflection
+       - A notification title (max 5 words with emoji)
+       - A one-sentence notification teaser
+    3. Response parsed as JSON with fallback to cleaned raw text
+    4. Insight saved to journal entry (ai_insight field)
+    5. Push notification sent with the insight teaser
+
+  RATE LIMITING:
+    • Users can create up to 3 journal entries per day
+    • Enforced via django-ratelimit
+
+  ARCHIVE SYSTEM:
+    • Toggle archive status on any entry
+    • Archived entries hidden from main feed
+    • Separate endpoint to view archived entries
+
+  API ENDPOINTS:
+    GET  /api/journal/entries/               — List journal entries (non-archived)
+    POST /api/journal/entries/               — Create new entry (triggers AI)
+    GET  /api/journal/entries/<id>/          — Get single entry
+    PUT  /api/journal/entries/<id>/          — Update entry (re-triggers AI if content changes)
+    DELETE /api/journal/entries/<id>/        — Delete entry
+    POST /api/journal/entries/<id>/archive/  — Toggle archive status
+    GET  /api/journal/archived/             — List archived entries
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5.5  COMMUNITY SOCIAL PLATFORM (community app)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A full-featured social community platform for spiritual growth, where users can
+share thoughts, interact with each other, and engage with AI-generated daily
+prompts.
+
+  COMMUNITY POSTS:
+    • Text-based posts with optional image upload (via Cloudinary)
+    • Image cleanup on post deletion (Cloudinary asset destroyed)
+    • Likes count and comments count (denormalized for performance)
+    • Soft-delete support (is_active flag)
+    • Timeline feed with tab filtering:
+      - "all"       — All active posts
+      - "following"  — Posts from followed users only
+      - "my"         — Current user's posts only
+
+  LIKE SYSTEM:
+    • Toggle-based like/unlike functionality
+    • Atomic increment/decrement of likes_count using F() expressions
+    • Push notification sent to post author when liked
+    • Unique constraint prevents double-likes
+
+  COMMENT SYSTEM:
+    • Thread-based comments on posts
+    • Both comment author and post author can delete comments
+    • Atomic comments_count tracking
+    • Push notification to post author on new comments
+
+  FOLLOW SYSTEM:
+    • Toggle follow/unfollow functionality
+    • Self-follow prevention
+    • Push notification to followed user
+    • Following users list endpoint
+
+  POST REPORTING:
+    • Users can report posts with a reason
+    • Reports stored with reference to original post
+    • Post reference preserved even if post is soft-deleted (SET_NULL)
+
+  AI-POWERED DAILY PROMPTS (Celery Beat — 9 AM New York):
+    The crown feature of the community. Every day at 9 AM (New York time),
+    a Celery Beat scheduled task:
+    1. Gets or creates a system user (soulciety-ai@system.local)
+    2. Gathers the last 7 AI-generated prompts to avoid repetition
+    3. Calls Gemini (gemini-2.5-flash) with a detailed creative prompt
+    4. Generates a unique, engaging community conversation prompt
+    5. Posts it as a CommunityPost from the system user
+    6. Notifies all active users via push notification
+
+    The prompts follow diverse formats:
+      • One-Liner Gut Punch — short, piercing questions
+      • Reflection Setup — scene + question
+      • Multi-Layer Prompt — emotional momentum building
+      • The Challenge — dare the community to act
+      • Pattern Interrupt — counterintuitive openers
+
+    Topics rotate across: breaking cycles, rewriting beliefs, highest self,
+    healing, gratitude, facing fears, manifesting, relationships as mirrors,
+    abundance mindset, present moment peace, and community support.
+
+    Fallback prompts hardcoded in case Gemini is unavailable.
+
+  DAILY PROMPT MODEL (DailyPrompt):
+    • Curated prompt bank with categories:
+      Self Reflection, Growth, Healing, Mindset, Gratitude, Vision
+    • Usage tracking (times_used, last_used_at)
+    • Least-recently-used ordering for fair rotation
+
+  API ENDPOINTS:
+    GET  /api/community/posts/                  — List posts (tab=all|following|my)
+    POST /api/community/posts/                  — Create new post
+    GET  /api/community/posts/<id>/             — Get post detail
+    PUT  /api/community/posts/<id>/             — Update own post
+    PATCH /api/community/posts/<id>/            — Partial update
+    DELETE /api/community/posts/<id>/           — Delete own post
+    POST /api/community/posts/<id>/like/        — Toggle like
+    GET  /api/community/posts/<id>/comments/    — List comments
+    POST /api/community/posts/<id>/comments/    — Add comment
+    DELETE /api/community/comments/<id>/        — Delete comment
+    POST /api/community/follow/<user_id>/       — Toggle follow
+    GET  /api/community/following/              — List following
+    GET  /api/community/users/<user_id>/posts/  — User's posts
+    POST /api/community/posts/report/           — Report a post
+    GET  /api/community/today-prompt/           — Get today's AI prompt
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5.6  SPIRITUAL CONTENT LIBRARY (spiritual app)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A curated library of spiritual, motivational, and meditation video content
+managed entirely via the admin dashboard.
+
+  CATEGORIES:
+    • Category-based organization with slug routing
+    • Active/inactive status for categories
+
+  VIDEO TRACKS:
+    • Video files stored on Cloudinary (resource_type='video')
+    • Thumbnail images stored separately on Cloudinary
+    • Auto-extracted video duration via Cloudinary metadata
+    • Celery fallback task for duration extraction on large videos
+    • View count tracking with atomic F() expression increments
+    • Featured video flagging
+    • Category tagging (ManyToMany relationship)
+    • Cloudinary asset cleanup on deletion
+
+  SUGGESTED VIDEOS:
+    • Priority-ordered suggestion system
+    • Admin-curated video recommendations
+
+  BOOKMARKING / FAVORITES:
+    • User can bookmark/unbookmark videos (toggle)
+    • View all bookmarked videos
+    • Unique together constraint (user, video)
+
+  PUSH NOTIFICATIONS ON NEW CONTENT:
+    • Signal-based notification when new active videos are uploaded
+    • Bulk push notification sent to all users via Celery task
+
+  SEARCH & FILTERING:
+    • Search by title or description
+    • Filter by category slug
+    • Popular videos sorted by view count with configurable limit
+
+  API ENDPOINTS:
+    GET  /api/spiritual/categories/            — List categories
+    GET  /api/spiritual/videos/                — List videos (?category=&search=)
+    GET  /api/spiritual/videos/<id>/           — Video detail (increments views)
+    GET  /api/spiritual/featured/              — Featured videos
+    GET  /api/spiritual/suggested/             — Suggested videos
+    GET  /api/spiritual/popular/               — Popular by views (?limit=5)
+    POST /api/spiritual/videos/<id>/bookmark/  — Toggle bookmark
+    GET  /api/spiritual/bookmarks/             — User's bookmarked videos
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5.7  HOME SCREEN & DAILY EXPERIENCE (app_home app)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The home screen is the user's first touchpoint each day. It combines
+personalized AI content with curated editorial.
+
+  AI-PERSONALIZED DAILY QUOTE:
+    • Mood-aware quote generation via Gemini AI
+    • Considers user's current mood from their latest MoodEntry
+    • Mood-to-prompt mapping for contextual quotes:
+      - Happy → "joyful, grateful, and full of light"
+      - Sad → "in need of comfort, healing, and gentle hope"
+      - Angry → "seeking peace, release, and inner calm"
+    • Database caching: one generated quote per user per day per mood
+    • Prevents redundant Gemini API calls (checks cache first)
+    • Fallback to static curated quotes if AI fails
+
+  MOOD CHECK-IN:
+    • Daily mood logging with predefined mood options
+    • User's current mood derived dynamically via property on UserProfile
+    • Mood influences daily quote generation and AI interactions
+    • Mood choices: Happy, Fear, Sad, Angry, Sick
+
+  DAILY MOVE:
+    • Admin-curated daily activity/challenge
+    • One per day (unique date constraint)
+    • Fallback to most recent if today's not set
+
+  POPULAR CONTENT:
+    • Featured editorial content posts
+    • Admin-managed via ContentPost model
+
+  PRODUCT SHOWCASE:
+    • Featured products with Cloudinary images
+    • External buy links
+    • Push notification to all users when featured products are added
+    • Signal-based Celery task for bulk notifications
+
+  DAILY INSPIRATION REMINDERS (Celery Beat — 8 AM daily):
+    • Automated morning push notification to all users
+    • Encourages daily app engagement
+
+  AGGREGATED HOME DATA ENDPOINT:
+    • Single API call returns: daily quote + daily move + popular content
+      + featured products
+    • Optimized to minimize client-side API calls
+
+  API ENDPOINTS:
+    GET  /api/home/                     — Aggregated home screen data
+    GET  /api/daily-quote/              — Personalized AI quote
+    POST /api/mood/                     — Log mood
+    GET  /api/daily-move/               — Today's activity
+    GET  /api/popular/                  — Popular content
+    GET  /api/products/featured/        — Featured products
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5.8  USER PROFILES (user_profiles app)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  PROFILE FEATURES:
+    • Auto-created via Django signal when user registers
+    • Profile picture upload via Cloudinary with old-image cleanup
+    • Social profile picture URL (synced from Google/Apple OAuth)
+    • Profile picture priority: social URL > Cloudinary upload
+    • Full name, phone number
+    • Notification preferences (enabled/disabled toggle)
+    • Member since timestamp
+    • Dynamic current mood property (derived from latest MoodEntry)
+    • Mood display with emoji labels
+
+  PROFILE PICTURE MANAGEMENT:
+    • Old Cloudinary assets automatically destroyed when picture changes
+    • Cloudinary asset cleanup on profile deletion
+
+  API ENDPOINTS:
+    GET   /api/profile/me/              — Get own profile
+    PUT   /api/profile/me/              — Update own profile
+    PATCH /api/profile/me/              — Partial update
+    GET   /api/profile/<user_id>/       — View another user's public profile
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5.9  NOTIFICATION SYSTEM (notifications app)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A comprehensive notification system supporting both in-app notifications and
+Firebase Cloud Messaging (FCM) push notifications.
+
+  NOTIFICATION TYPES:
+    • like              — Someone liked your post
+    • comment           — Someone commented on your post
+    • follow            — Someone started following you
+    • new_post          — New post from followed user
+    • journal_insight   — AI insight ready on journal entry
+    • daily_quote       — Daily quote reminder
+    • community_mention — You were mentioned in a post
+    • chat_message      — New message from Soulciety AI
+    • system            — System announcements
+
+  IN-APP NOTIFICATIONS:
+    • Full notification list with unread count
+    • Filter by unread only
+    • Mark single or all as read
+    • Action endpoint for deep-linking (returns navigation data)
+    • Rich JSON data field for contextual navigation
+
+  PUSH NOTIFICATIONS (Firebase FCM):
+    • Device token registration (FCM tokens)
+    • Multi-platform support: Android, iOS, Web
+    • Token deactivation on logout
+    • Respects user's notification preference setting
+    • Bulk push notification capability for announcements
+    • Event-driven via Django signals and Celery tasks
+
+  API ENDPOINTS:
+    POST /api/notifications/device-token/          — Register FCM token
+    DELETE /api/notifications/device-token/        — Deactivate token
+    GET  /api/notifications/                       — List notifications
+    POST /api/notifications/mark-read/             — Mark all as read
+    POST /api/notifications/<id>/mark-read/        — Mark single as read
+    POST /api/notifications/<id>/action/           — Handle notification action
+    GET  /api/notifications/settings/              — Get notification preference
+    POST /api/notifications/settings/              — Update preference
+
+
+================================================================================
+6. AI INTEGRATION SUMMARY
+================================================================================
+
+Soulciety is deeply AI-native. Google Gemini powers multiple features:
+
+┌────────────────────────┬────────────────────────┬───────────────────────┐
+│       FEATURE          │        MODEL           │      TRIGGER          │
+├────────────────────────┼────────────────────────┼───────────────────────┤
+│ AI Chat Responses      │ gemini-3-flash-preview │ User message (Celery) │
+│ Conversation Titles    │ gemini-2.5-flash-lite  │ After 5 messages      │
+│ Journal AI Insights    │ gemini-2.5-flash       │ Journal creation/edit │
+│ Daily Quote Generation │ gemini-2.5-flash       │ Home screen (cached)  │
+│ Memory Extraction      │ gemini-3-flash-preview │ Every 10 messages     │
+│ Daily Community Prompt │ gemini-2.5-flash       │ 9 AM daily (Beat)     │
+│ Vector Embeddings      │ text-embedding-004     │ Memory storage        │
+└────────────────────────┴────────────────────────┴───────────────────────┘
+
+Total Gemini Models Used: 4 (gemini-3-flash-preview, gemini-2.5-flash,
+gemini-2.5-flash-lite, text-embedding-004)
+
+
+================================================================================
+7. BACKGROUND TASK SYSTEM (Celery + Redis)
+================================================================================
+
+Soulciety relies heavily on asynchronous processing:
+
+  CELERY WORKERS:
+    • AI chat response generation
+    • Memory extraction and vector storage
+    • Journal insight generation
+    • Conversation title generation
+    • Video metadata update
+    • Push notification delivery (bulk and individual)
+    • Product notification dispatch
+
+  CELERY BEAT SCHEDULED TASKS:
+    • send-morning-reminders — 8:00 AM daily (app_home.tasks)
+    • post-daily-community-prompt — 5:00 AM UTC / 9 AM New York (community.tasks)
+
+  RESILIENCE FEATURES:
+    • Max retries configured per task (2-3 retries)
+    • Exponential backoff with configurable delays
+    • Graceful fallback responses when AI fails
+    • Task results stored in Django DB via django-celery-results
+    • transaction.on_commit() ensures tasks queue only after DB commits
+    • Non-fatal error handling for optional features (memory, notifications)
+
+
+================================================================================
+8. DATA STORAGE & MEDIA HANDLING
+================================================================================
+
+  DATABASE:
+    • Development: SQLite3
+    • Production: PostgreSQL (via psycopg2)
+
+  MEDIA STORAGE (Cloudinary):
+    • Profile pictures — folder: profile_pictures/
+    • Community post images — folder: community/posts/
+    • Spiritual video files — folder: videos/ (resource_type: video)
+    • Video thumbnails — folder: thumbnails/
+    • Product images — folder: products/
+    • Automatic Cloudinary asset cleanup on model deletion
+    • Old asset destruction on file replacement
+
+  VECTOR DATABASE:
+    • ChromaDB PersistentClient
+    • Persisted to disk at /app/chroma_data (Docker volume)
+    • Per-user collections for memory isolation
+
+  CACHING:
+    • Redis (redis:6379/1) via django-redis
+    • Used for rate limiting and general caching
+
+
+================================================================================
+9. SECURITY & RATE LIMITING
+================================================================================
+
+  AUTHENTICATION:
+    • JWT-based (SimpleJWT)
+    • Token refresh mechanism
+    • Social auth with unusable passwords
+
+  RATE LIMITING:
+    • AI Chat: 30 messages/day per user
+    • Journal Creation: 3 entries/day per user
+    • Backed by Redis cache
+    • Custom exception handler returns 429 with friendly messages
+
+  SECURITY HEADERS:
+    • CSRF protection with trusted origins
+    • Secure proxy SSL header configuration
+    • CORS configuration (restrictable for production)
+
+  DATA PRIVACY:
+    • Journal entries are private by default
+    • Memory system uses soft-delete for fact management
+    • User-specific ChromaDB collections for memory isolation
+    • Account deletion capability with ChromaDB cleanup
+
+
+================================================================================
+10. ADMIN DASHBOARD
+================================================================================
+
+The admin panel uses Django Jazzmin for a modern, beautiful admin experience:
+
+  MANAGEABLE MODELS:
+    • Users and OTP codes
+    • Community posts, likes, comments, follows, reports
+    • Daily prompts (category, usage tracking)
+    • Journal entries and AI insights
+    • Video tracks, categories, suggested videos, bookmarks
+    • Quotes, mood entries, daily moves, content posts
+    • Products (featured, active)
+    • Notifications and device tokens
+    • User memories and conversation summaries
+    • Celery task results and periodic tasks
+
+
+================================================================================
+11. FUTURE ROADMAP (Based on Brainstorming Docs)
+================================================================================
+
+Based on existing brainstorming documents in the repository:
+
+  PLANNED FEATURES:
+    • AI-Powered Video Recommendations
+      - In-chat contextual video suggestions
+      - Behavioral scoring + semantic matching
+      - "For You" personalized video feed
+    • Enhanced chat memory with deeper pattern recognition
+    • Video content recommendation engine
+    • Community mentions and tagging
+    • Guided meditation experiences
+    • Progress tracking and spiritual growth metrics
+
+
+================================================================================
+12. TECHNICAL SPECIFICATIONS
+================================================================================
+
+  Language        : Python 3.11
+  Framework       : Django 5.2.9
+  API Framework   : Django REST Framework
+  Authentication  : SimpleJWT (djangorestframework-simplejwt)
+  Task Queue      : Celery with Redis broker
+  Task Scheduler  : Celery Beat (django-celery-beat)
+  Task Results    : django-celery-results
+  AI Provider     : Google Generative AI (google-genai)
+  Vector Database : ChromaDB
+  Media Storage   : Cloudinary (cloudinary_storage)
+  Push Notifications : Firebase Admin SDK (FCM)
+  Caching         : django-redis
+  Rate Limiting   : django-ratelimit
+  Admin Theme     : Django Jazzmin
+  Static Files    : WhiteNoise
+  WSGI Server     : Gunicorn
+  Container       : Docker / Docker Compose
+  Email           : SMTP (Gmail)
+
+
+================================================================================
+13. REPOSITORY STRUCTURE
+================================================================================
+
+Soulciety-Backend/
+├── accounts/           # Authentication, registration, OTP, social auth
+├── app_home/           # Home screen, quotes, mood, products, daily content
+├── chat/               # AI chat conversations, message handling, AI response
+├── community/          # Social posts, likes, comments, follows, daily prompts
+├── journal/            # Reflective journaling with AI insights
+├── memory/             # AI memory system: extraction, storage, vector search
+├── notifications/      # In-app and push notification management
+├── spiritual/          # Video content library, categories, bookmarks
+├── user_profiles/      # User profiles, profile pictures, preferences
+├── tlecap_backend/     # Django project settings, URLs, WSGI, Celery config
+├── chroma_data/        # ChromaDB persistent vector storage
+├── staticfiles/        # Collected static files (WhiteNoise)
+├── brainstroming/      # Project brainstorming and planning documents
+├── random_testing/     # Test scripts and experimentation
+├── .github/workflows/  # CI/CD deployment pipeline
+├── Dockerfile          # Container build configuration
+├── docker-compose.yml  # Multi-service orchestration
+├── requirements.txt    # Python dependencies
+├── manage.py           # Django management command
+└── .env                # Environment variables (secrets)
+
+
+================================================================================
+14. CONCLUSION
+================================================================================
+
+Soulciety is not just another wellness app. It is a meticulously engineered
+platform that merges cutting-edge AI technology with timeless spiritual wisdom
+to create a deeply personal transformation experience. Every technical decision
+— from the three-tier memory system to the async task architecture to the
+carefully crafted AI persona — serves a singular purpose: helping users
+permanently shift their self-concept so that their outer reality can follow.
+
+The platform stands at the intersection of technology and consciousness,
+offering users a companion that truly knows them, a community that holds space
+for them, and content that speaks directly to their soul.
+
+================================================================================
+                    © 2026 Soulciety — Where Soul Meets Society
+================================================================================

@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:6-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+
+  web:
+    build: .
+    command: gunicorn tlecap_backend.wsgi:application --bind 0.0.0.0:8000 --workers 3 --threads 2 --worker-class gthread --timeout 120 --graceful-timeout 30
+    restart: always
+    volumes:
+      - .:/app
+      - chroma_data:/app/chroma_data
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+  worker:
+    build: .
+    command: celery -A tlecap_backend worker --loglevel=info
+    restart: always
+    volumes:
+      - .:/app
+      - ./staticfiles:/app/staticfiles
+      - chroma_data:/app/chroma_data
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+  beat:
+    build: .
+    command: celery -A tlecap_backend beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    restart: always
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+volumes:
+  redisdata:
+    driver: local
+  chroma_data:
+    driver: local

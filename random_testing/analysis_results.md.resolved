@@ -1,0 +1,26 @@
+# Soulciety Feature Coverage Analysis
+
+Based on an analysis of the current Django backend codebase, here is the status of the 14 requested features:
+
+## ✅ Fully Covered
+
+1. **Personalized Awakening Coach**: Implemented via Gemini AI in [chat/tasks.py](file:///home/akib/Desktop/Work/Soulciety-Backend/chat/tasks.py). The AI acts as a consciousness companion, holding space, reflecting deeply, and pacing the user's emotional state instead of acting purely as a chatbot.
+2. **Manifestation Coach**: Implemented via the AI Chat system prompt. The model integrates principles of Neville Goddard (Law of Assumption), Joe Dispenza, and Abraham Hicks to gently rewrite limiting beliefs and identity.
+3. **Crisis Support**: Handled robustly in [chat/tasks.py](file:///home/akib/Desktop/Work/Soulciety-Backend/chat/tasks.py). The AI has strict emergency instructions to prioritize safety, provide immediate empathy, and guide users to professional help in times of distress (e.g., dialing 988) without giving spiritual platitudes.
+
+## ⚠️ Partially Covered
+
+4. **Energy & Mood Tracking**: The [MoodEntry](file:///home/akib/Desktop/Work/Soulciety-Backend/app_home/models.py#24-45) model in [app_home/models.py](file:///home/akib/Desktop/Work/Soulciety-Backend/app_home/models.py) successfully tracks daily moods (happy, fear, sad, angry, sick) with optional notes. However, it currently lacks dedicated tracking fields for "Energy", "Stress", and "Gratitude".
+5. **Daily Alignment Check-Ins**: Users can log daily moods, but there is no dedicated 3-question flow check-in asking about mental/emotional feelings, daily intentions, and what is weighing on their minds.
+6. **Guided Journaling**: The [JournalEntry](file:///home/akib/Desktop/Work/Soulciety-Backend/journal/models.py#8-32) model supports journaling and features an [ai_insight](file:///home/akib/Desktop/Work/Soulciety-Backend/journal/tasks.py#15-121) task ([journal/tasks.py](file:///home/akib/Desktop/Work/Soulciety-Backend/journal/tasks.py)) that generates a poetic healing reflection *after* a user submits a journal. However, it does not currently generate custom *prompts* for the user to answer before they write.
+7. **Affirmation Generator**: [app_home/views.py](file:///home/akib/Desktop/Work/Soulciety-Backend/app_home/views.py) has a [DailyQuoteView](file:///home/akib/Desktop/Work/Soulciety-Backend/app_home/views.py#30-109) that uses Gemini to generate a single daily personalized quote based on the user's current mood. It does not yet support the standalone action of parsing an intention ("I want to feel more confident") and outputting 10 custom affirmations/mirror-work prompts.
+8. **Spiritual Education**: The AI Chatbot is capable of explaining complex spiritual topics naturally. However, there is no dedicated "Spiritual Education" module or structured glossary surfaced actively to the user outside of chat.
+
+## ❌ Not Touched / Remaining Work
+
+9. **Custom Healing Plans**: No backend logic exists yet to generate 30-day custom video/journal routines based on onboarding struggles. [spiritual/models.py](file:///home/akib/Desktop/Work/Soulciety-Backend/spiritual/models.py) has categories and videos ([VideoTrack](file:///home/akib/Desktop/Work/Soulciety-Backend/spiritual/models.py#23-96)), but no dynamically generated "Plans".
+10. **Community Conversation Prompts**: The `community` app supports posts, likes, and comments, but there is no active automated AI chron-job or task generating daily engagement prompts for the community feed.
+11. **Personalized Content Recommendations**: [SuggestedVideo](file:///home/akib/Desktop/Work/Soulciety-Backend/spiritual/models.py#97-107) exists, but the AI Chat does not currently inject video recommendations natively into the conversation flow based on user discussions.
+12. **Identity Builder**: No backend models or views exist for building habits, daily beliefs, or future-self definitions in a structured, actionable way.
+13. **"Rewrite Your Story" AI Tool**: There is no standalone tool/endpoint for a user to input a single limiting belief and instantly receive an empowered belief, affirmation, and recommended content (though the Chatbot could theoretically do this passively, a dedicated, highly shareable viral tool is lacking).
+14. **Messages From Tabatha**: No models, views, or fields are found dedicated to hosting founder Tabatha's daily messages.

@@ -1,0 +1,27 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Deploy Backend
+        run: |
+          cd /home/soulbackapp/app
+          git pull origin main
+          docker compose down
+          rm -f celerybeat-schedule celerybeat-schedule.dir celerybeat-schedule.bak celerybeat-schedule.dat
+          docker compose up --build -d
+          sleep 5
+          docker compose exec -T web python manage.py migrate
+          echo "--- Container Status ---"
+          docker compose ps
+          echo "--- Beat Logs (last 20 lines) ---"
+          docker compose logs --tail=20 beat
+          echo "--- Worker Logs (last 20 lines) ---"
+          docker compose logs --tail=20 worker
